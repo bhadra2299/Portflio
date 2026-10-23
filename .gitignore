@@ -1,0 +1,17 @@
+# dependencies
+/node_modules
+
+# next.js build output
+/.next/
+out/
+
+# typescript build artifacts
+*.tsbuildinfo
+next-env.d.ts
+
+# logs & OS noise
+*.log
+.DS_Store
+
+# internal master resume (contains working notes — keep local, never publish)
+/Kudum Veerabhadraiah (2).pdf
