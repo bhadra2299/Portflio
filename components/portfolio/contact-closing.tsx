@@ -92,13 +92,13 @@ export function ContactClosingSection() {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 font-mono text-xs text-emerald-300 mb-8">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                OPEN TO DATA SCIENTIST, ML ENGINEER, MLOPS & AI ENGINEER ROLES
+                OPEN TO AI ENGINEER, DATA SCIENTIST, SOFTWARE ENGINEER & AI PRODUCT ENGINEER ROLES
               </div>
               <h2 className="font-albert font-light text-[clamp(2.5rem,5vw,4.8rem)] leading-[1.03] tracking-[-0.04em] text-white mb-6">
                 Let&#39;s connect and build what comes next.
               </h2>
               <p className="text-base md:text-lg text-gray-300 max-w-2xl leading-relaxed mb-8">
-                Always open to discussing Data Science, MLOps, LLM orchestration, or full-time engineering opportunities in Bangalore or remote.
+                Always open to discussing AI engineering, data science, LLM orchestration, or full-time opportunities in Bangalore or remote.
               </p>
 
               {/* Direct Social & Contact Pills */}
@@ -144,13 +144,6 @@ export function ContactClosingSection() {
                 >
                   {copied ? "✓ COPIED: " + EMAIL : "COPY EMAIL ADDRESS"}
                 </button>
-                <a
-                  href="/Kudum_Veerabhadraiah_Resume.pdf"
-                  download="Kudum_Veerabhadraiah_Resume.pdf"
-                  className="inline-flex items-center justify-center h-12 px-5 rounded-full bg-sky-500/20 border border-sky-400/40 text-xs font-mono text-sky-200 hover:bg-sky-500/30 transition-colors"
-                >
-                  DOWNLOAD RESUME PDF ↓
-                </a>
               </div>
             </div>
           </div>

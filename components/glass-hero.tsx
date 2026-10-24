@@ -2,8 +2,8 @@
 
 import { useRef, useEffect } from "react";
 
-const DESKTOP_RADIUS = 235;
-const MOBILE_RADIUS = 150;
+const DESKTOP_RADIUS = 130;
+const MOBILE_RADIUS = 85;
 const POS_LERP = 0.14;
 const RADIUS_LERP = 0.12;
 
@@ -17,12 +17,10 @@ export function GlassHero() {
   const smoothY = useRef(-999);
   const currentRadius = useRef(0);
   const targetRadius = useRef(0);
-  const isTouch = useRef(false);
-  const rafId = useRef(0);
 
   const name = "Kudum Veerabhadraiah";
-  const summary = "AI Engineer & Data Scientist building systems that understand. Specialized in machine learning, deep learning, NLP, computer vision, MLOps, and full-stack AI integrations.";
-  const targetRoles = ["ML Engineer", "AI Engineer", "Data Scientist", "MLOps Engineer"];
+  const summary = "AI Engineer & Data Scientist building systems that understand. Specialized in machine learning, deep learning, NLP, computer vision, and full-stack AI integrations.";
+  const targetRoles = ["AI Engineer", "Data Scientist", "Software Engineer", "AI Product Engineer"];
   const navLinks = ["About", "Projects", "Skills", "Education", "Contact"];
 
   useEffect(() => {
@@ -36,8 +34,10 @@ export function GlassHero() {
     const radFactor = reduced ? 1 : RADIUS_LERP;
 
     let running = true;
+    let frame = 0;
 
     function tick() {
+      frame = 0;
       if (!running || !reveal) return;
 
       smoothX.current += (rawX.current - smoothX.current) * posFactor;
@@ -49,45 +49,64 @@ export function GlassHero() {
       reveal.style.setProperty("--reveal-y", `${smoothY.current}px`);
       reveal.style.setProperty("--reveal-radius", `${currentRadius.current}px`);
 
-      rafId.current = requestAnimationFrame(tick);
+      // Once the smoothed values have caught up with their targets there is
+      // nothing left to draw, so park the loop rather than burning a frame
+      // every 16ms forever. Any input restarts it through start().
+      const settled =
+        Math.abs(rawX.current - smoothX.current) < 0.1 &&
+        Math.abs(rawY.current - smoothY.current) < 0.1 &&
+        Math.abs(targetRadius.current - currentRadius.current) < 0.1;
+
+      if (!settled) frame = requestAnimationFrame(tick);
     }
 
-    rafId.current = requestAnimationFrame(tick);
+    function start() {
+      if (running && frame === 0) frame = requestAnimationFrame(tick);
+    }
+
+    start();
 
     function onPointerEnter(e: PointerEvent) {
       rawX.current = e.clientX;
       rawY.current = e.clientY;
       targetRadius.current =
         e.pointerType === "touch" ? MOBILE_RADIUS : DESKTOP_RADIUS;
+      start();
     }
 
     function onPointerMove(e: PointerEvent) {
       rawX.current = e.clientX;
       rawY.current = e.clientY;
+      start();
     }
 
     function onPointerLeave(e: PointerEvent) {
       if (e.pointerType === "mouse") {
         targetRadius.current = 0;
+        start();
       }
     }
 
     function onTouchStart(e: TouchEvent) {
-      isTouch.current = true;
       const t = e.touches[0];
+      if (!t) return;
       rawX.current = t.clientX;
       rawY.current = t.clientY;
       targetRadius.current = MOBILE_RADIUS;
+      start();
     }
 
     function onTouchMove(e: TouchEvent) {
       const t = e.touches[0];
+      if (!t) return;
       rawX.current = t.clientX;
       rawY.current = t.clientY;
+      start();
     }
 
     function onTouchEnd() {
       targetRadius.current = 0;
+      start();
     }
 
     hero.addEventListener("pointerenter", onPointerEnter as EventListener);
@@ -99,7 +118,7 @@ export function GlassHero() {
 
     return () => {
       running = false;
-      cancelAnimationFrame(rafId.current);
+      if (frame) cancelAnimationFrame(frame);
       hero.removeEventListener("pointerenter", onPointerEnter as EventListener);
       hero.removeEventListener("pointermove", onPointerMove as EventListener);
       hero.removeEventListener("pointerleave", onPointerLeave as EventListener);
@@ -165,7 +184,7 @@ export function GlassHero() {
           </p>
 
           <h1
-            className="font-albert font-light text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.02] tracking-[-0.06em] text-gray-900 mb-6"
+            className="font-albert font-light text-[clamp(2rem,4.2vw,3.5rem)] leading-[1.04] tracking-[-0.05em] text-gray-900 mb-5"
             style={{
               animation: "line-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.5s both",
             }}
@@ -244,8 +263,8 @@ export function GlassHero() {
             "linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,255,255,0.45))",
           backdropFilter: "blur(24px) saturate(180%)",
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
-          paddingTop: "max(2.5rem, env(safe-area-inset-top, 2.5rem))",
-          paddingBottom: "1rem",
+          paddingTop: "max(1.25rem, env(safe-area-inset-top, 1.25rem))",
+          paddingBottom: "0.75rem",
           animation: "nav-fade 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both",
         }}
       >
@@ -255,13 +274,13 @@ export function GlassHero() {
           aria-label="Home"
         >
           <VMark />
-          <span className="text-base font-medium tracking-tight">
+          <span className="text-sm font-medium tracking-tight">
             {name.split(" ").pop()}
           </span>
         </a>
 
         <nav
-          className="hidden lg:flex items-center gap-6"
+          className="hidden lg:flex items-center gap-5"
           aria-label="Main navigation"
         >
           {navLinks.map((label) => (
@@ -277,7 +296,7 @@ export function GlassHero() {
 
         <a
           href="#contact"
-          className="pointer-events-auto inline-flex items-center justify-center h-10 px-4 rounded-full bg-white/70 backdrop-blur-sm border border-gray-200 text-sm font-medium text-gray-800 transition-all duration-200 hover:bg-white hover:border-gray-300 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#e8ecf0]"
+          className="pointer-events-auto inline-flex items-center justify-center h-9 px-4 rounded-full bg-white/70 backdrop-blur-sm border border-gray-200 text-sm font-medium text-gray-800 transition-all duration-200 hover:bg-white hover:border-gray-300 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#e8ecf0]"
         >
           Contact Me
         </a>
@@ -289,8 +308,8 @@ export function GlassHero() {
 function VMark() {
   return (
     <svg
-      width="28"
-      height="28"
+      width="24"
+      height="24"
       viewBox="0 0 28 28"
       fill="none"
       aria-hidden="true"

@@ -20,7 +20,7 @@ export function CommandDock() {
     const update = () => {
       const docH = document.documentElement.scrollHeight - window.innerHeight;
       const y = window.scrollY;
-      setProgress(docH > 0 ? Math.min(1, Math.max(0, y / docH)) : 0);
+      const nextProgress = docH > 0 ? Math.min(1, Math.max(0, y / docH)) : 0;
       let current = "hero";
       for (const s of SECTIONS) {
         const el = document.getElementById(s.id);
@@ -28,7 +28,10 @@ export function CommandDock() {
         const rect = el.getBoundingClientRect();
         if (rect.top <= window.innerHeight * 0.45) current = s.id;
       }
-      setActiveSection(current);
+      // This runs on every animation frame while scrolling. Returning the
+      // previous value lets React bail out instead of re-rendering per frame.
+      setProgress((prev) => (prev === nextProgress ? prev : nextProgress));
+      setActiveSection((prev) => (prev === current ? prev : current));
     };
     const onScroll = () => {
       cancelAnimationFrame(raf);
@@ -86,15 +89,6 @@ export function CommandDock() {
           );
         })}
 
-        <span className="w-px h-6 bg-gray-900/15 mx-1" aria-hidden="true" />
-
-        <a
-          href="/Kudum_Veerabhadraiah_Resume.pdf"
-          download="Kudum_Veerabhadraiah_Resume.pdf"
-          className="px-4 py-2 rounded-full bg-sky-600 text-white font-mono text-[11px] tracking-[0.14em] hover:bg-sky-500 transition-colors"
-        >
-          RESUME ↓
-        </a>
       </nav>
     </div>
   );

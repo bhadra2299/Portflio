@@ -316,27 +316,6 @@ export function SkillsClassifiedSection() {
           })}
         </div>
 
-        {/* Complete ATS & Technical Skill Inventory Ribbon */}
-        <div className="glass rounded-3xl p-6 md:p-8">
-          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-sky-800 font-semibold">
-              COMPLETE VERIFIED TECHNICAL & ATS SKILL INVENTORY
-            </span>
-            <span className="font-mono text-xs text-gray-500">
-              {COMPLETE_RESUME_SKILLS.length} TOOLS & CONCEPTS
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {COMPLETE_RESUME_SKILLS.map((item) => (
-              <span
-                key={item}
-                className="px-3 py-1 rounded-full font-mono text-xs bg-white/85 text-gray-800 border border-gray-900/10 hover:border-sky-600/40 transition-colors"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );

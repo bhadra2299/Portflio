@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
 }
 
 const MARQUEE_ITEMS = [
-  "SOFTWARE ENGINEER · DATA SCIENTIST · AI & ML ENGINEER",
+  "SOFTWARE ENGINEER · AI ENGINEER · DATA SCIENTIST · AI PRODUCT ENGINEER",
   "01 · CROP YIELD PREDICTION SYSTEM · R² ≈ 0.85 · -23% RMSE · 50K+ RECORDS",
   "02 · REAL-TIME OBSTACLE DETECTION · ~88% ACCURACY · -20% FALSE POSITIVES",
   "03 · RICE LEAF DISEASE DETECTION & MNIST · TENSORFLOW · KERAS · CNN · OPENCV",
@@ -19,8 +19,10 @@ const MARQUEE_ITEMS = [
   "06 · CAREERFLUX AI · FASTAPI · NEXT.JS · POSTGRESQL · SUPABASE",
 ];
 
-const BIO_SCRUB =
-  "Software Engineer, Data Scientist, and AI Engineer fresher with a B.Tech in Electronics & Communication Engineering (2025) and hands-on Data Science training—designing end-to-end solutions from data collection, EDA, feature engineering, and model training to REST APIs, cloud deployment, and agentic AI workflows.";
+const BIO_PARAGRAPHS = [
+  "I'm a Data Scientist, AI Engineer, and AI Product Engineer with a B.Tech in Electronics & Communication Engineering (2025) and hands-on Data Science training (Datamites). I work across the full AI lifecycle — from data collection, EDA and feature engineering to model training, REST APIs, cloud deployment and agentic AI workflows.",
+  "Beyond models, I build complete products: AI-powered apps and websites, agentic assistants and clean, usable interfaces — turning machine learning into tools people actually use.",
+];
 
 const WORKFLOW_STAGES = [
   "01 Problem Definition",
@@ -69,8 +71,8 @@ const CORE_CAPABILITY_HIGHLIGHTS = [
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const wordsContainerRef = useRef<HTMLParagraphElement>(null);
-  const words = BIO_SCRUB.split(" ");
+  const wordsContainerRef = useRef<HTMLDivElement>(null);
+  const paragraphWords = BIO_PARAGRAPHS.map((p) => p.split(" "));
 
   useGSAP(
     () => {
@@ -166,19 +168,23 @@ export function AboutSection() {
             measurable machine learning & AI systems.
           </h2>
 
-          <p
+          <div
             ref={wordsContainerRef}
             className="max-w-5xl font-albert font-normal text-[clamp(1.3rem,2.2vw,1.95rem)] leading-[1.44] tracking-[-0.02em] text-gray-900"
           >
-            {words.map((word, idx) => (
-              <span
-                key={idx}
-                className="gsap-word inline-block mr-[0.3em] will-change-[opacity,transform]"
-              >
-                {word}
-              </span>
+            {paragraphWords.map((para, pIdx) => (
+              <p key={pIdx} className={pIdx > 0 ? "mt-6" : ""}>
+                {para.map((word, idx) => (
+                  <span
+                    key={idx}
+                    className="gsap-word inline-block mr-[0.3em] will-change-[opacity,transform]"
+                  >
+                    {word}
+                  </span>
+                ))}
+              </p>
             ))}
-          </p>
+          </div>
         </div>
 
         {/* Gapless 12-Column Bento Grid: 5 Col Career Focus & Workflow + 7 Col Verified Project & Training Proof */}

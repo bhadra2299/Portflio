@@ -56,15 +56,6 @@ export interface ClassifiedSkillGroup {
   skills: { name: string; role: string; level: string }[];
 }
 
-export interface FounderHrAuditItem {
-  lens: "FOUNDER / CTO LENS" | "HR / TECHNICAL RECRUITER LENS";
-  title: string;
-  severity: "CRITICAL" | "HIGH" | "MEDIUM";
-  whatWasWrong: string;
-  whyItMatters: string;
-  howToCloseGap: string;
-}
-
 export const ORIGINAL_PROJECTS: OriginalProject[] = [
   {
     slug: "crop-yield-prediction-system",
@@ -554,24 +545,27 @@ export const CLASSIFIED_SKILL_GROUPS: ClassifiedSkillGroup[] = [
       { name: "Data Structures & Algorithms", role: "Foundational problem solving, complexity & algorithmic logic", level: "Core" },
       { name: "Functions, Modules & File Handling", role: "Structured package architecture, I/O & exception handling", level: "Core" },
       { name: "Debugging & Virtual Environments", role: "Systematic troubleshooting, venv/pip package management", level: "Core" },
+      { name: "Git & GitHub", role: "Version control, branching workflows & collaborative repositories", level: "Core" },
     ],
   },
   {
-    id: "backend-apis",
+    id: "ai-orchestration",
     index: "02",
-    category: "Backend & API Development",
-    proficiencyTag: "PRODUCTION SERVICE LAYER",
+    category: "AI Orchestration & Agentic Tooling",
+    proficiencyTag: "AGENTIC DEVELOPMENT WORKFLOW",
     summary:
-      "Designing and integrating synchronous and asynchronous REST APIs for ML model serving and AI applications using FastAPI, Flask, Uvicorn, Pydantic, and HTTPX.",
-    highlightMetric: "FastAPI · Flask · REST APIs · Async",
+      "Driving agentic coding and research workflows across terminal agents, AI-native editors and CLI harnesses — delegating multi-file implementation, repo-wide refactors and tool-driven automation to Codex, Claude Code, Cursor, Gemini CLI, DeepSeek Harness, Hermes Agent, OpenCode and VS Code.",
+    highlightMetric: "Codex · Cursor · Claude Code · Gemini CLI",
     accent: "#34d399",
     skills: [
-      { name: "FastAPI & Uvicorn", role: "High-performance async Python APIs & ASGI serving", level: "Core" },
-      { name: "Flask", role: "Lightweight REST API endpoints for real-time ML model integration", level: "Core" },
-      { name: "REST API Development & Integration", role: "JSON payload design, status codes & external API consumption", level: "Core" },
-      { name: "Pydantic", role: "Strict request/response schema validation & data parsing", level: "Core" },
-      { name: "Async Programming & HTTPX", role: "Non-blocking I/O & concurrent multi-LLM API calls", level: "Proficient" },
-      { name: "Document Parsers (PyPDF2, python-docx, openpyxl)", role: "Automated ingestion of PDFs, Word docs & Excel files", level: "Proficient" },
+      { name: "Codex", role: "Terminal coding agent for autonomous multi-file implementation and review", level: "Core" },
+      { name: "Claude Code", role: "CLI agent for long-horizon refactors, debugging and repo-wide changes", level: "Core" },
+      { name: "Cursor", role: "AI-native editor for inline generation, agentic edits and codebase Q&A", level: "Core" },
+      { name: "VS Code", role: "Primary IDE with integrated AI agent and extension workflow", level: "Core" },
+      { name: "Gemini CLI", role: "Large-context terminal agent for code analysis and generation", level: "Proficient" },
+      { name: "DeepSeek Harness", role: "Tool-driven agent harness for orchestrated multi-step coding tasks", level: "Proficient" },
+      { name: "Hermes Agent", role: "Tool-calling agent for task automation and structured tool use", level: "Working" },
+      { name: "OpenCode", role: "Open-source, provider-agnostic terminal coding agent", level: "Working" },
     ],
   },
   {
@@ -646,17 +640,21 @@ export const CLASSIFIED_SKILL_GROUPS: ClassifiedSkillGroup[] = [
   {
     id: "cloud-mlops",
     index: "07",
-    category: "Cloud, MLOps & DevOps",
-    proficiencyTag: "DEPLOYMENT & LIFECYCLE OPS",
+    category: "Cloud, MLOps & Workflow Automation",
+    proficiencyTag: "DEPLOYMENT & AUTOMATION OPS",
     summary:
-      "Packaging, tracking, and deploying machine learning and backend services using AWS cloud infrastructure, Docker containers, MLflow, and Git CI/CD workflows.",
-    highlightMetric: "AWS (S3, EC2, Lambda) · Docker · MLflow",
+      "Packaging, tracking, and deploying machine learning and backend services using Docker containers and MLflow, then wiring them into automated no-code and low-code workflows with n8n, Make, Zapier and Google Opal.",
+    highlightMetric: "Docker · MLflow · n8n · Make",
     accent: "#34d399",
     skills: [
-      { name: "AWS S3, Amazon EC2 & AWS Lambda", role: "Cloud dataset storage, compute instances & serverless execution", level: "Core" },
       { name: "Docker", role: "Containerizing Python APIs & ML environments for reproducible deploys", level: "Core" },
       { name: "MLflow", role: "Experiment tracking, metric logging & model lifecycle management", level: "Core" },
-      { name: "Git, GitHub & CI/CD", role: "Version control, collaborative repositories & automated workflows", level: "Core" },
+      { name: "CI/CD", role: "Automated build, test & deployment pipelines", level: "Core" },
+      { name: "MCP Server", role: "Building Model Context Protocol servers that expose tools, data & APIs to AI agents", level: "Proficient" },
+      { name: "n8n", role: "Self-hosted visual automation for multi-step AI, API & data pipelines", level: "Proficient" },
+      { name: "Make", role: "Visual scenario automation connecting apps, APIs and AI services", level: "Proficient" },
+      { name: "Zapier", role: "No-code workflow automation and cross-app trigger/action chains", level: "Proficient" },
+      { name: "Google Opal", role: "No-code AI mini-app builder for prompt-driven workflow tools", level: "Working" },
     ],
   },
   {
@@ -673,52 +671,5 @@ export const CLASSIFIED_SKILL_GROUPS: ClassifiedSkillGroup[] = [
       { name: "Matplotlib, Seaborn & Plotly", role: "Exploratory statistical charts & interactive visualizations", level: "Core" },
       { name: "React & Next.js", role: "Modern web UI interfaces for AI products (CareerFlux AI)", level: "Working" },
     ],
-  },
-];
-
-export const FOUNDER_HR_AUDIT: FounderHrAuditItem[] = [
-  {
-    lens: "HR / TECHNICAL RECRUITER LENS",
-    title: "1. Resume PDF vs. Website Mismatch (Critical Background-Check Risk)",
-    severity: "CRITICAL",
-    whatWasWrong:
-      "Your downloadable PDF (public/Kudum_Veerabhadraiah_Resume.pdf) is currently a 5-page internal 'Master Resume Inventory' containing AI instruction notes ('Your previous profile references AI/ML internship-related work, but the exact company name... are not available', 'Certification Rule', 'Master Resume Usage') and a typo ('Tollaboration' under Soft Skills). Meanwhile, the website previously claimed 5 extra certifications not in that PDF.",
-    whyItMatters:
-      "When HR or a recruiter clicks 'Download Resume PDF', seeing meta-instructions or unverified placeholders triggers an immediate rejection. Furthermore, any mismatch between website claims and resume PDF fails HR background screening.",
-    howToCloseGap:
-      "We aligned the website's Projects, Skills, and Certifications (DataMites — Data Scientist Training; IBM SkillsBuild — Python for Data Science) strictly to your verified Master Resume. Next, replace public/Kudum_Veerabhadraiah_Resume.pdf with a clean 1-page tailored PDF without pages 4–5 meta-notes.",
-  },
-  {
-    lens: "FOUNDER / CTO LENS",
-    title: "2. Generic GitHub Profile Links Instead of Deep Repo Permalinks & Live Demos",
-    severity: "CRITICAL",
-    whatWasWrong:
-      "Every project button ('GitHub Source ↗') currently points to the root profile https://github.com/bhadra2299 instead of the exact repository (e.g., github.com/bhadra2299/crop-yield-prediction) and lacks a 60-second Loom video or live deployed URL.",
-    whyItMatters:
-      "Founders and engineering managers spend ~45 seconds evaluating a candidate. If they click 'GitHub Source' on Crop Yield or Maxi AI and land on a generic profile where they have to hunt for the repo, 70% will bounce.",
-    howToCloseGap:
-      "Push clean, well-documented repositories for all 6 projects with a README containing architecture diagrams, setup commands, and sample outputs, then link each project card directly to its specific repo URL.",
-  },
-  {
-    lens: "FOUNDER / CTO LENS",
-    title: "3. Missing 'Concept vs. Shipped Production' Transparency on AI Products",
-    severity: "HIGH",
-    whatWasWrong:
-      "Presenting CareerFlux AI and Maxi AI Assistant as finished enterprise SaaS products without a live URL makes technical founders skeptical during deep-dive interviews.",
-    whyItMatters:
-      "Founders love ambitious builders, but they test honesty. Framing your completed ML/CV/EDA pipelines (Crop Yield R²=0.85, Obstacle Detection 88%, Rice Leaf CNN, Bank Marketing) as executed datasets/models while clearly labeling Maxi AI & CareerFlux AI as 'Active AI Product / Agent Architectures' builds 10x more trust.",
-    howToCloseGap:
-      "We re-ordered your portfolio so your verified, metric-backed ML & Vision projects lead first (01–04), followed by Maxi AI Assistant (05) and CareerFlux AI (06) with accurate stack and architecture framing.",
-  },
-  {
-    lens: "HR / TECHNICAL RECRUITER LENS",
-    title: "4. Broad 14-Role Targeting Dilutes Immediate ATS & Recruiter Positioning",
-    severity: "HIGH",
-    whatWasWrong:
-      "Trying to target 14 titles simultaneously raises the question: 'Is he a Python Backend dev, a Data Analyst, or an ML Engineer?'",
-    whyItMatters:
-      "Recruiters hire for a specific requisition (e.g., Junior Data Scientist or Python/AI Engineer). They need to see your primary 4 tracks clearly mapped to proof.",
-    howToCloseGap:
-      "We structured your skills into 8 crisp recruiter-scannable domains (Programming & SE, Backend & APIs, ML & Data Science, Deep Learning/CV/NLP, GenAI/RAG/Agents, Databases, Cloud/MLOps, BI) and added your 15-stage Engineering + Data Science Workflow.",
   },
 ];
