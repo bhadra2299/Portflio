@@ -48,6 +48,10 @@ const nextConfig = {
   // pure unused attack surface. Remove it (set to false if next/image is
   // adopted later).
   images: { unoptimized: true },
+  // Pin output file tracing to this project. Without it Next walks up the tree
+  // and selects the user home directory because of a stray package-lock.json
+  // there, which would trace the wrong files for standalone/serverless output.
+  outputFileTracingRoot: __dirname,
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
